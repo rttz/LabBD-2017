@@ -1,0 +1,231 @@
+/* 
+View cuidaCompleto
+Autor: Eduardo Yamauchi - 619485
+A view tem o intuito de retornar uma visão unificada de todas as tabelas
+relacionadas a uma agregação entre Cuidador e Paciente
+
+Procedure insert_cuidaCompleto
+Autor: Eduardo Yamauchi - 619485
+No MySQL, não existe a trigger "instead of". Portanto, para fazer 
+inserção em uma view complexa, tem que se fazer uma procedure
+
+Procedure delete_cuidaCompleto
+Autor: Eduardo Yamauchi - 619485
+No MySQL, não existe a trigger "instead of". Portanto, para fazer 
+deleção em uma view complexa, tem que se fazer uma procedure
+*/
+
+
+/*
+View atendimentoMedico - ok
+Autor: Pedro Mauad - 619736
+View com o objetivo de retornar uma visão unificada de todos atributos importantes
+de tabelas relacionadas com a entidade Atendimento. As tabelas relacionadas são:Pessoa, Paciente, Médico.
+
+View atendimentoMedico - ok
+Autor: Pedro Mauad - 619736
+View com o objetivo de possibilitar uma inserção na view atendimentoMedico.
+
+Procedure insert_atendimentoMedico - ok
+Autor: Pedro Mauad - 619736 
+Não existe trigger "instead of" no MySQL. Logo, deve-se criar um procedimento
+para fazer inserção em uma view que use mais de uma tabela.
+
+Procedure delete_atendimentoMedico - Ok
+Autor: Pedro Mauad
+Não existe trigger "instead of" no MySQL. Logo, deve-se criar um procedimento
+para fazer a remoção em uma view que use mais de uma tabela.
+*/
+
+
+/* 
+Procedure DadosExame
+Autor: Lucas Gouveia, RA 489050
+A procedure retorna os dados dos exames realizados de um paciente
+
+Inserção de Dados em Exame
+Autor: Lucas Gouveia, RA 489050
+*/
+
+
+/*
+Procedure insere_HorarioCuida
+Autor: Rodolfo Zampieri, RA: 380350
+
+No MySQL o trigger "instead of" não existe, portanto, para realizar uma inserção em uma view é necessário utilizar procedure
+
+para conferir que foi inserido basta realizar o seguinte SELECT
+SELECT * FROM `HorarioCuida` WHERE 1
+
+Procedure insere_IntercorrenciaCuida
+Autor: Rodolfo Zampieri, RA:380350
+
+No MySQL o trigger "instead of" não existe, portanto, para realizar uma inserção em uma view é necessário utilizar procedure
+
+Procedure para inserir o ínicio e término
+CREATE TABLE IF NOT EXISTS IntercorrenciaCuida (
+    cpf CHAR(11) NOT NULL,
+    idCuidador INTEGER NOT NULL,
+    intercorrenciaNro INTEGER NOT NULL auto_increment,
+    descricao CHAR(250) NOT NULL,
+    FOREIGN KEY (cpf, idCuidador) REFERENCES Cuida (cpf, idCuidador) ON DELETE CASCADE,
+	PRIMARY KEY (intercorrenciaNro)
+);
+
+para conferir que foi inserido basta realizar o seguinte SELECT
+SELECT * FROM `IntercorrenciaCuida` WHERE 1
+*/
+
+
+/*
+Autor: Juliano Lanssarini - 489093
+Criado a View para a Consulta e seus respectivos medicamentos,
+Também, a partir das consultas, implementado uma procedure
+como um contador de quantas consultas determinado paciente teve.
+
+--inserindo dados na tabela Consulta
+
+--inserindo dados na tabela Medicamentos
+
+--Procedure para inserção de dados em Medicamentos
+
+--Criando uma VIEW para as Consultas e seus respectivos medicamentos
+
+--Procedure com cursor para contar quantas consultas teve determinado paciente
+*/
+
+
+/*
+Autor: Guilherme H C de Moraes - 573671
+View para mostrar informações do familiar
+View para mostrar informações do nao familiar
+Function(duas) para conferir se cpf consta na lista de pessoas, tanto para familiar, não familiar, e paciente 
+Function para retornar o ID do familiar ou nao familiar a partir de seu cpf*/
+/*Verificar que as tabelas foram alteradas la em cima*/
+
+
+FAMILIAR
+
+-> View para mostrar as informacoes dos familiares
+-> Mostra dD do familiar, atributo que é utilizado em outras tabelas, mas depois fiz uma Function para retornar o Id a partir do CPF
+
+
+naoFAMILIAR
+
+-> View para mostrar as informacoes dos nao familiares
+-> Mostra Id do nao familiar, atributo que é utilizado em outras tabelas, mas depois fiz uma Function para retornar o Id a partir do CPF
+
+
+FUNCTIONS
+
+-> Function para mostrar o id de familiar a partir de seu cpf
+-> Function para mostrar o id de nao familiar a partir de seu cpf
+-> Function para inserir em Familiar
+-> Function para inserir em naoFamiliar
+-> Funcao que retorna o nome dos familiares
+-> Funcao que retorna o nome dos nao familiares
+*/
+
+
+/* 
+Thiago Bretas(551899)
+
+-> Inserção de valores na tabela Informal
+-> Criação de view para mostrar os dados do informal
+-> Criação de view, através de um procedure, para listar os informais que também são pacientes 
+-> Criação de view, através de um procedure, para listar os informais que também são familiares – Thiago Bretas(551899)
+->Function para mostrar o ID de um Informal a partir de seu cpf - Thiago Bretas(551899)
+-> Criação de procedure para inserir dados na tabela Informal 
+-> Procedure para deletar dados da tabela Informal 
+-> Trigger para verificar se o informal já está cadastrado no sistema antes de fazer o cadastro  
+*/ 
+
+
+/*
+Aluno : Frankson Teotonho de Sousa RA: 619540
+
+-> View para consulta com todos os dados de uma anamnese de um paciente
+-> View para a consulta, inserção ou exclusão de uma anamnese completa
+-> Procedure com a inserção de uma anamnese completa
+-> Procedure com a exclusao de uma anamnese completa
+*/
+
+/*Aluno : Paulo Vitor Tostes Betareli 	RA:587648
+
+-> Inserts em examesSolicitados
+-> trigger DataDisponivel que verifica se há data disponível para o agendamento do exame
+-> view que consulta exames solicitados em uma consulta
+-> INSERT DENTRO DA TEBELA NAOCONSANGUINEO
+
+*/
+
+/* Autor: Régis Zangirolami, 386227
+
+-> Insert Medico (mais Pessoa como teste)
+-> Procedure insertMedico: O procedimento insere um novo médico.
+-> Function getEmailMedico: A função obtém o e-mail de um dado médico.
+-> View medicosView: A view lista os médicos registrados ordenando por especialidade e nome.
+-> Insert Edita (mais Paciente e Anamnese como teste)
+-> Procedure insertEdicao: O procedimento insere a relação de edição da anamnese de um paciente por um médico.
+-> Function getMedicosAnamnese: a função obtém a quantidade de médicos responsáveis por uma dada anamnese.
+-> View editaAnamneseView: A view lista as relações de edição da anamnese de um paciente por um médico ordenando por cpf do paciente.
+*/
+
+
+/* Igor Bianchi 558400
+
+-> insert plano de saude
+-> insert serviços
+-> view para ver os serviços de acordo com os planos de saude
+-> Gera novos id para serviços
+-> Gera erro se campo valorAtual da tabela  Servicos for negativo
+-> Gera erro se campo valorContratado da tabela  Servicos for negativo
+-> Gera erro se campo valorAtual da tabela  Servicos for negativo
+-> Gera erro se campo valorContratado da tabela  Servicos for negativo
+-> triggers para verificar se as datas de contratação e de alteração de valor são validas
+-> criar novo plano de saúde
+-> procedimento para atualizar os valores de serviços
+*/
+
+/*
+Nome: João Vieira da Silva Neto	RA:610054
+Grupo: 3D
+
+-> Alimentação
+-> insert pessoa
+-> insert paciente
+-> insert vinculado
+-> view vPlanoPaciente
+-> trigger t_i_VincNegativo: Gera erro se campo valor da tabela Vinculado for negativo
+-> trigger t_i_ServAtualContratNegativo: Gera erro se campo valorAtual  for maior que o valorContratado na tabela  Servicos for negativo
+-> trigger t_u_VincNegativo: Gera erro se campo valor da tabela Vinculado for negativo
+-> trigger t_u_ServAtualContratNegativo: Gera erro se campo valorAtual  for maior que o valorContratado na tabela  Servicos for negativo
+-> procedure novo_vinculo: 
+-> procedure mostra_planos_contratados: retorna todos os planos contratados e seus pacientes de um plano de saude
+-> procedure deletaVinculo: procedimento para excluir um vinculo 
+-> procedure atualizaValorVinculado: procedimento para atualizar os valores do vinculo
+-> procedure atualizaContratoVinculo: procedimento para atualizar a cobertura do contrato
+-> function totalMensal: função que retorna o total pago por mes em planos de saude
+*/
+
+/*
+Guilherme Silva Correa Lemos RA:587010
+-> insercoes alteraAnamnese
+-> trigger _before_insert_altera_anam_idAna: verifica se o idAnamnese inserido existe
+-> trigger _before_insert_altera_anam_codCat: verifica se o CodigoCategoria inserido existe
+-> procedure insertAltera: O procedimento insere a relação de alteração da anamnese
+*/
+
+/* Autor: Lucas Eduardo Pessoa - RA: 551864
+-> Inserção de dados do paciente
+-> trigger: paciente_existe: Criação de trigger para verificar se o paciente existe
+-> view v_ConsangInfo: recuperar dados de consanguineo
+-> procedure verificaConsang: consanguineo
+*/
+
+/* Autor: Gustavo do Carmo Braghim | RA: 489182
+-> Script para inserção de dados em pessoa
+-> view pessoaCuidador: para mostrar Cuidadores (Pessoas) e todos os dados
+-> trigger cuidador_existe: para verificar se cuidador ja existe
+-> procedure deletaCuidador: para apagar cuidador
+*/
