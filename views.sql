@@ -93,12 +93,13 @@ ORDER BY cpf;
 
 
 DROP VIEW if exists vPlanoServico;
-CREATE VIEW vPlanoServico AS(
+CREATE VIEW vPlanoServico (cnpj, tipoServico, valorAtualServico, nomePlano, tipoPlano) AS(
 	SELECT s.cnpj, s.tipo, s.valorAtual, ps.nome, ps.tipoplano 
     FROM servicos s, PlanodeSaude ps
     WHERE  ps.CNPJ = s.cnpj 
-    GROUP BY s.cnpj, ps.nome
+    ORDER BY s.cnpj
 );
+
 
 DELIMITER $$
 
@@ -128,3 +129,9 @@ CREATE VIEW pessoaCuidador AS
     	FROM Cuidador
     	WHERE Cuidador.cpf = Pessoa.cpf;
 DELIMITER ;
+
+
+CREATE VIEW viewExame as 
+SELECT Exame.nroExame, Exame.dia, Exame.hora, Exame.responsavel, Exame.endereco, Exame.tipo, Exame.telefone, Exame.resultado, Exame.email
+FROM Exame, Atendimento, Paciente
+WHERE Exame.dia = Atendimento.dia AND Exame.hora = Atendimento.hora AND Atendimento.cpf = Paciente.cpf;

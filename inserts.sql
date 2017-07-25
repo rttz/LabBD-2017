@@ -1,11 +1,9 @@
-INSERT INTO 'Exame' ('nroExame', 'dia', 'hora', 'responsavel', 'endereco', 'tipo', 'telefone', 'resultado', 'email') 
-VALUES ('489050', '19/07/2017', '14:30', 'Lucas Gouveia', 'Rua Adolfo 1500', 'Cardiologia', '34127803', '130bpm', 'lucas2gouveia@gmail.com'); 
-INSERT INTO 'Exame' ('nroExame', 'dia', 'hora', 'responsavel', 'endereco', 'tipo', 'telefone', 'resultado', 'email') 
-VALUES ('489051', '19/07/2017', '15:00', 'Alberto', 'Rua Alvarenga 150', 'Teste Físico', '38593020', 'Aprovado', 'alberto@gmail.com');
-INSERT INTO 'Exame' ('nroExame', 'dia', 'hora', 'responsavel', 'endereco', 'tipo', 'telefone', 'resultado', 'email') 
-VALUES ('489052', '20/07/2017', '10:00', 'Thiago', 'Rua Sao Paulo 15', 'Teste de Miopia', '38123451', 'Negativo', 'thiago10@gmail.com');
-INSERT INTO 'Exame' ('nroExame', 'dia', 'hora', 'responsavel', 'endereco', 'tipo', 'telefone', 'resultado', 'email') 
-VALUES ('489053', '21/07/2017', '10:30', 'Carlos', 'Rua Trabalhador 2', 'HIV', '32324411', 'negativo', 'carlossilva@gmail.com');
+INSERT INTO Exame ('nroExame', 'dia', 'hora', 'responsavel', 'endereco', 'tipo', 'telefone', 'resultado', 'email') 
+    VALUES ('489050', '2017-05-21', '15:30', 'Lucas Gouveia', 'Rua Adolfo 1500', 'Cardiologia', '34127803', '130bpm', 'lucas2gouveia@gmail.com'); 
+INSERT INTO Exame ('nroExame', 'dia', 'hora', 'responsavel', 'endereco', 'tipo', 'telefone', 'resultado', 'email') 
+    VALUES ('489051', '2017-06-15', '14:30', 'Alberto', 'Rua Alvarenga 150', 'Teste Físico', '38593020', 'Aprovado', 'alberto@gmail.com');
+INSERT INTO Exame ('nroExame', 'dia', 'hora', 'responsavel', 'endereco', 'tipo', 'telefone', 'resultado', 'email') 
+    VALUES ('489052', '2017-03-12', '16:30', 'Thiago', 'Rua Sao Paulo 15', 'Teste de Miopia', '38123451', 'Negativo', 'thiago10@gmail.com');
 
 
 INSERT INTO Consulta(dia, hora, codigo)

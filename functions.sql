@@ -144,3 +144,32 @@ CREATE FUNCTION totalMensal(fcpf CHAR(11)) RETURNS float
         WHERE Vinculado.cpf = fcpf;
         return total;
 	END$$
+
+
+DROP FUNCTION IF EXISTS deleteServicos$$
+CREATE FUNCTION deleteServicos(pcnpj CHAR(14), pid integer) RETURNS VARCHAR(50)
+    BEGIN
+        DECLARE verifica int;
+        SELECT COUNT(*) INTO verifica FROM Servicos WHERE pcnpj = Servicos.cnpj AND pid = Servicos.idServico;
+        IF (verifica = 0) THEN
+            RETURN 'CNPJ ou id de serviço inválido!';
+        ELSE
+            DELETE FROM Servicos WHERE Servicos.cnpj = pcnpj AND Servicos.idServico = pid;
+            RETURN 'Registro apagado com sucesso!';
+        END IF;
+    END$$
+
+DROP FUNCTION IF EXISTS deletePlano$$
+CREATE FUNCTION deletePlano(pcnpj CHAR(14)) RETURNS VARCHAR(50)
+    BEGIN
+        DECLARE verifica int;
+        SELECT COUNT(*) INTO verifica FROM PlanoDeSaude WHERE pcnpj = PlanoDeSaude.cnpj;
+        IF (verifica = 0) THEN
+            RETURN 'CNPJ inválido!';
+        ELSE
+            DELETE FROM Servicos WHERE Servicos.cnpj = pcnpj;
+            DELETE FROM Vinculado WHERE Vinculado.cnpj = pcnpj;
+            DELETE FROM PlanoDeSaude WHERE PlanoDeSaude.cnpj = pcnpj;
+            RETURN 'Registro apagado com sucesso!';
+        END IF;
+    END$$

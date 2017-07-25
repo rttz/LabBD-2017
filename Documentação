@@ -45,6 +45,8 @@ A procedure retorna os dados dos exames realizados de um paciente
 
 Inserção de Dados em Exame
 Autor: Lucas Gouveia, RA 489050
+
+-> View viewExame: retorna todas as infos de exame
 */
 
 
@@ -185,6 +187,8 @@ Aluno : Frankson Teotonho de Sousa RA: 619540
 -> triggers para verificar se as datas de contratação e de alteração de valor são validas
 -> criar novo plano de saúde
 -> procedimento para atualizar os valores de serviços
+-> função para deletar um serviço, primeiro verificando se ele existe
+-> função que deleta um plano de saúde levando em conta primeiro as chaves estrangeiras
 */
 
 /*

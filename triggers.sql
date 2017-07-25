@@ -72,13 +72,14 @@ FOR EACH ROW
 	BEGIN
 		DECLARE msg VARCHAR(100);
 		IF date(new.dataValor) > date(NOW()) THEN
-			SET msg = concat('Erro: data da última atualização do valor inválida', cast(new.valor as char));
+			SET msg ='Erro: data da última atualização do valor inválida';
             signal sqlstate '45000' set message_text = msg;
 		ELSEIF date(new.dataContrato) > date(now()) THEN
-			SET msg = concat('Erro: data de contratação inválida', cast(new.valor as char));
+			SET msg = 'Erro: data de contratação inválida';
             signal sqlstate '45000' set message_text = msg;
 		END IF;
 	END$$
+
 
 DROP trigger if exists dataValidainst$$
 
@@ -88,13 +89,14 @@ FOR EACH ROW
 	BEGIN
 		DECLARE msg VARCHAR(100);
 		IF date(new.dataValor) > date(NOW()) THEN
-			SET msg = concat('Erro: data da última atualização do valor inválida', cast(new.valor as char));
+			SET msg ='Erro: data da última atualização do valor inválida';
             signal sqlstate '45000' set message_text = msg;
 		ELSEIF date(new.dataContrato) > date(now()) THEN
-			SET msg = concat('Erro: data de contratação inválida', cast(new.valor as char));
+			SET msg ='Erro: data de contratação inválida';
             signal sqlstate '45000' set message_text = msg;
 		END IF;
 	END$$
+
 
 
 DROP TRIGGER if exists t_i_ValorNegativo;

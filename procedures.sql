@@ -194,44 +194,25 @@ CREATE PROCEDURE novo_plano(cnpj CHAR(14), nome CHAR(30), lugar CHAR(30), tipo C
 END$$
 
 DROP PROCEDURE IF EXISTS novo_servico$$
-CREATE PROCEDURE novo_servico(cnpj CHAR(14), tipo VARCHAR(20), carencia CHAR(10), valoratual FLOAT,
-								valorcontratado FLOAT)
+CREATE PROCEDURE novo_servico(cnpj CHAR(14), tipo VARCHAR(20), carencia CHAR(10), valoratual FLOAT, valorcontratado FLOAT)
 	BEGIN
-		INSERT INTO PlanoDeSaude(cnpj, tipo, carencia, valorAtual,valorContratado)
-        VALUES (cnpj, tipo, STR_TO_DATE(carencia, "%d/%m/%Y"), valortual, valorcontratado);
-END$$
-
-DROP PROCEDURE IF EXISTS mostra_servico$$
-CREATE PROCEDURE mostra_servicos(IN pcnpj CHAR(14), OUT pidServico INTEGER, OUT ptipo VARCHAR(20), 
-								OUT pcarencia DATE, OUT pvalorAtual FLOAT, OUT pvalorContratado FLOAT)
-	BEGIN
-		SELECT idServico, 
-			   tipo, 
-			   carencia, 
-			   valorAtual, 
-			   valorContratado
-		INTO   pidServico, 
-				ptipo, 
-				pcarencia, 
-                pvalorAtual,
-               pvalorContratado
-        FROM Servicos
-        WHERE Servicos.cnpj = pcnpj;
-END$$
+		INSERT INTO Servicos(cnpj, idServico, tipo, carencia, valorAtual,valorContratado)
+        VALUES (pcnpj, NULL, ptipo, STR_TO_DATE(pcarencia, "%d/%m/%Y"), pvaloratual, pvalorcontratado);
+	END$$
 
 
-DROP PROCEDDURE IF EXISTS atualizaValorServico$$
+DROP PROCEDURE IF EXISTS atualizaValorServico$$
 CREATE PROCEDURE atualizaValorServico(pcnpj CHAR(14), pid INTEGER, pvalor FLOAT, pvalorcontratado FLOAT)
 	BEGIN
+		
 		UPDATE Servicos
         SET Servicos.valorAtual = pvalor, Servicos.valorContratado = pvalorcontratado
-        WHERE Servicoes.idServico = pid AND Servicos.cnpj = pcnpj;
+        WHERE Servicos.idServico = pid AND Servicos.cnpj = pcnpj;
 	END$$
 DELIMITER ;
 
 
 DROP PROCEDURE IF EXISTS novo_vinculo;
-DROP PROCEDURE IF EXISTS mostra_servicos;
 DROP PROCEDURE IF EXISTS novo_servico;
 
 
