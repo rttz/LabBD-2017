@@ -199,3 +199,25 @@ CREATE TRIGGER cuidador_existe BEFORE INSERT ON Cuidador
   		END IF;
 END$$
 DELIMITER;
+
+
+DELIMITER $$   
+CREATE TRIGGER cpf_iguais_familiar BEFORE INSERT ON Familiar
+	FOR EACH ROW 
+	BEGIN 
+      	IF (NEW.cpfPaciente = NEW.cpfFamiliar) THEN 
+        	SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'Inserção falhou, Familiar nao pode ser o proprio Paciente'; 
+          END IF; 
+END$$ 
+DELIMITER ;
+
+
+DELIMITER $$ 
+CREATE TRIGGER cpf_iguais_Nfamiliar BEFORE INSERT ON NaoFamiliar
+	FOR EACH ROW 
+	BEGIN 
+      	IF (NEW.cpfPaciente = NEW.cpfNFamiliar) THEN 
+        	SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'Inserção falhou, Nao-Familiar nao pode ser o proprio Paciente'; 
+          END IF; 
+END$$ 
+DELIMITER ;
