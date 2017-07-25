@@ -27,28 +27,23 @@ CREATE VIEW ConsultasMedicam AS
 	WHERE Consulta.dia = Medicamento.dia AND Consulta.hora = Medicamento.hora
 	GROUP BY Consulta.dia;
 
-
 CREATE VIEW v_infoFamiliar AS 
-SELECT f.cpfFamiliar, f.idRelacionado,f.relacao, pe.prNome, pe.sobrenome,  
+SELECT f.cpfFamiliar, f.idRelacionado,f.relacao, pe.prNome, pe.sobrenome  
 FROM Familiar f INNER JOIN Pessoa pe ON f.cpfFamiliar = pe.cpf 
 
-
-/*igual*/
-CREATE VIEW v_idRelacionado AS 
+CREATE VIEW v_idRelacionadoFamiliar AS 
 SELECT f.cpfFamiliar, f.idRelacionado 
 FROM Familiar f
-INNER JOIN Pessoa pe ON f.cpfFamiliar = pe.cpf
-
+INNER JOIN Pessoa pe ON f.cpfFamiliar = pe.cpf 
 
 CREATE VIEW v_infoNFamiliar AS 
-SELECT nf.cpfNFamiliar, nf.idRelacionado, nf.relacao pe.prNome, pe.sobrenome,  
+SELECT nf.cpfNFamiliar, nf.idRelacionado, nf.relacao, pe.prNome, pe.sobrenome 
 FROM NaoFamiliar nf
 INNER JOIN Pessoa pe ON nf.cpfNFamiliar = pe.cpf 
 
-
-CREATE VIEW v_idRelacionado AS 
-SELECT nf.cpf, nf.idRelacionado 
-FROM NaoFamiliar f
+CREATE VIEW v_idRelacionadoNF AS 
+SELECT nf.cpfNFamiliar, nf.idRelacionado 
+FROM NaoFamiliar nf
 INNER JOIN Pessoa pe ON nf.cpfNFamiliar = pe.cpf 
 
 
