@@ -217,8 +217,20 @@ Guilherme Silva Correa Lemos RA:587010
 /* Autor: Lucas Eduardo Pessoa - RA: 551864
 -> Inserção de dados do paciente
 -> trigger: paciente_existe: Criação de trigger para verificar se o paciente existe
+-> trigger: consanguineo_existe: Criação de trigger para verificar se o consanguineo existe
 -> view v_ConsangInfo: recuperar dados de consanguineo
+-> view v_Profissional: para mostrar Profissionais (Pessoas) e todos os dados
+-> view v_Paciente: para mostrar Profissionais (Pessoas) e todos os dados
 -> procedure verificaConsang: consanguineo
+-> procedure insereConsanguineo: para inserir Consanguineo
+-> procedure deletaConsanguineo: para apagar Consanguineo
+-> procedure insereProfissional: para inserir Profissional
+-> procedure deletaProfissional: para apagar Profissional
+-> procedure inserePaciente: para inserir Paciente
+-> procedure deletaPaciente: para apagar Paciente
+-> function mostraConsanguineos: mostra as pessoas Consanguineas relacionada ao respectivo familiar
+-> FAZER UM CURSOR (COPIAR)
+-> FAZER UM TRIGGER (COPIAR)
 */
 
 /* Autor: Gustavo do Carmo Braghim | RA: 489182

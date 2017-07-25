@@ -293,3 +293,114 @@ BEGIN
 	DELETE FROM Pessoa WHERE Pessoa.cpf = cpf;
 END;
 DELIMITER;
+
+CREATE PROCEDURE insere_ExamesSolicitados(IN `ex_codigo` INT, IN `ex_dia` DATE, IN `ex_hora` TIME, IN `ex_nomeExame` VARCHAR(30)) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER 
+BEGIN 
+INSERT INTO ExamesSolicitados(codigo, dia, hora,nomeExame) 
+VALUES (ex_codigo, ex_dia, ex_hora, ex_nomeExame);
+ END
+
+DELIMITER $$
+CREATE PROCEDURE insereProfissional (
+    cpfAux CHAR(11),
+    prNomeAux VARCHAR (30),
+    sobrenomeAux VARCHAR(30),
+    cepAux CHAR(11),
+    ruaAux VARCHAR(50),
+    numeroAux INTEGER,
+    cidadeAux VARCHAR (30),
+    estadoAux VARCHAR (20),
+    comercialAux CHAR(14),
+    fixoAux CHAR(14),
+    celularAux CHAR(14),
+    whatsappAux CHAR(14),
+    codigoCategoriaAux INTEGER,
+    idCuidadorAux INTEGER,
+    especialidadeAux VARCHAR(30))
+BEGIN
+    INSERT INTO Pessoa (cpf, prNome, sobrenome, cep, rua, numero, cidade, estado, comercial, fixo, celular, whatsapp)
+        VALUES (cpfAux, prNomeAux, sobrenomeAux, cepAux, ruaAux, numeroAux, cidadeAux, estadoAux, comercialAux, fixoAux, celularAux, whatsappAux);
+
+    INSERT INTO Profissional (codigoCategoria, idCuidador, cpf, especialidade)
+        VALUES (codigoCategoriaAux, idCuidadorAux, cpfAux, especialidadeAux);
+END$$
+DELIMETER ;
+
+DELIMITER $$
+CREATE PROCEDURE deletaProfissional (IN cpf CHAR(11), IN codigoCategoria INTEGER)
+BEGIN
+	DELETE FROM Profissional WHERE Profissional.cpf = cpf AND Profissional.codigoCategoria = codigoCategoria;
+	DELETE FROM Pessoa WHERE Pessoa.cpf = cpf;
+END;
+
+DELIMITER $$
+CREATE PROCEDURE inserePaciente (
+    cpfAux CHAR(11),
+    prNomeAux VARCHAR (30),
+    sobrenomeAux VARCHAR(30),
+    cepAux CHAR(11),
+    ruaAux VARCHAR(50),
+    numeroAux INTEGER,
+    cidadeAux VARCHAR (30),
+    estadoAux VARCHAR (20),
+    comercialAux CHAR(14),
+    fixoAux CHAR(14),
+    celularAux CHAR(14),
+    whatsappAux CHAR(14))
+BEGIN
+    INSERT INTO Pessoa (cpf, prNome, sobrenome, cep, rua, numero, cidade, estado, comercial, fixo, celular, whatsapp)
+        VALUES (cpfAux, prNomeAux, sobrenomeAux, cepAux, ruaAux, numeroAux, cidadeAux, estadoAux, comercialAux, fixoAux, celularAux, whatsappAux);
+
+    INSERT INTO Paciente (cpf)
+        VALUES (cpfAux);
+END$$
+DELIMETER ;
+
+DELIMITER $$
+CREATE PROCEDURE deletaPaciente (IN cpf CHAR(11))
+BEGIN
+	DELETE FROM Paciente WHERE Paciente.cpf = cpf;
+	DELETE FROM Pessoa WHERE Pessoa.cpf = cpf;
+END;
+
+DELIMITER $$
+CREATE PROCEDURE insereConsanguineo (
+    cpfAux CHAR(11),
+    prNomeAux VARCHAR (30),
+    sobrenomeAux VARCHAR(30),
+    cepAux CHAR(11),
+    ruaAux VARCHAR(50),
+    numeroAux INTEGER,
+    cidadeAux VARCHAR (30),
+    estadoAux VARCHAR (20),
+    comercialAux CHAR(14),
+    fixoAux CHAR(14),
+    celularAux CHAR(14),
+    whatsappAux CHAR(14),
+    idRelacionadoAux INTEGER,
+    relacaoAux VARCHAR(30),
+    dadosMedicosAux VARCHAR(60),
+    idAnamneseAux INTEGER,
+    idRelacionadoAux INTEGER,
+    dadosMedicosAux VARCHAR(60),
+    parentescoAux VARCHAR(30),
+    historicoAuxAux VARCHAR(50))
+BEGIN
+    INSERT INTO Pessoa (cpf, prNome, sobrenome, cep, rua, numero, cidade, estado, comercial, fixo, celular, whatsapp)
+        VALUES (cpfAux, prNomeAux, sobrenomeAux, cepAux, ruaAux, numeroAux, cidadeAux, estadoAux, comercialAux, fixoAux, celularAux, whatsappAux);
+
+    INSERT INTO Familiar (idRelacionado, cpfFamiliar, cpfPaciente, relacao, dadosMedicos)
+    	VALUES (idRelacionadoAux, cpfAux, cpfAux, relacaoAux, dadosMedicos);
+
+    INSERT INTO Consanguineo (idAnamnese, idRelacionado, dadosMedicos, parentesco, historico)
+    	VALUES (idAnamneseAux);
+END$$
+DELIMETER ;
+
+DELIMITER $$
+CREATE PROCEDURE deletaConsanguineo (IN cpf CHAR(11), IN idAnamnese INTEGER, IN idRelacionado INTEGER)
+BEGIN
+	DELETE FROM Consanguineo WHERE Consanguineo.idAnamnese = idAnamnese AND Consanguineo.idRelacionado = idRelacionado;
+	DELETE FROM Familiar WHERE Familiar.idRelacionado = idRelacionado AND Familiar.cpfFamiliar = cpf;
+	DELETE FROM Pessoa WHERE Pessoa.cpf = cpf;
+END;

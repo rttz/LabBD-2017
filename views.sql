@@ -70,13 +70,13 @@ FROM Anamnese a, Questoes q
 WHERE (a.idAnamnese = q.idAnamnese);
 
 
-CREATE VIEW ConsultaExameSolicitado as
-select  consulta.codigo as 'IDConsulta' ,
-ExamesSolicitados.codigo as 'IDConsulta', 
+CREATE VIEW View_examesSolicitados
+AS select codigo as 'IDExame', 
 nomeExame as 'Exame', 
-ExamesSolicitados.dia as 'dia' ,
-ExamesSolicitados.hora as 'hora'
-from Consulta, ExamesSolicitados;
+dia as 'dia' ,
+hora as 'hora'
+from ExamesSolicitados
+order by nomeExame
 
 
 CREATE VIEW medicosView AS
@@ -113,10 +113,23 @@ CREATE VIEW vPlanoPaciente AS(
     GROUP BY p.prNome, ps.nome
 );
 
+
 CREATE VIEW v_ConsangInfo AS 
 	SELECT C.idAnamnese, C.idRelacionado, C.dadosMedicos, pe.parentesco, pe.historico 
 	FROM Consanguineo C 
 	INNER JOIN Relacionado r ON C.idRelacionado = r.idRelacionado;
+
+CREATE VIEW v_Profissional AS
+	SELECT Pessoa.prNome, Pessoa.sobrenome, Profissional.codigoCategoria, Profissional.idCuidador, Profissional.cpf, Profissional.especialidade 
+	FROM Profissional
+	INNER JOIN Pessoa ON Profissional.cpf = Pessoa.cpf
+	ORDER BY Profissional.especialidade, Pessoa.prNome;
+
+CREATE VIEW v_Paciente AS
+	SELECT Pessoa.prNome, Pessoa.sobrenome, Paciente.cpf
+	FROM Paciente
+	INNER JOIN Pessoa ON Paciente.cpf = Pessoa.cpf
+	ORDER BY Paciente.cpf, Pessoa.prNome;
 
 
 DELIMITER $$
@@ -135,3 +148,13 @@ CREATE VIEW viewExame as
 SELECT Exame.nroExame, Exame.dia, Exame.hora, Exame.responsavel, Exame.endereco, Exame.tipo, Exame.telefone, Exame.resultado, Exame.email
 FROM Exame, Atendimento, Paciente
 WHERE Exame.dia = Atendimento.dia AND Exame.hora = Atendimento.hora AND Atendimento.cpf = Paciente.cpf;
+
+
+CREATE VIEW View_NaoConsanguineo AS
+SELECT * FROM `NaoConsanguineo`
+ORDER BY NaoConsanguineo.parentesco
+
+/*CREATE VIEW View_NaoConsanguineo_ AS 
+select cpf as 'CPF', IdRelacionado as 'ID', dAdosMedicos as 'Informações MEdicas' , Parentesco as 'Parentesco'
+ from NaoConsanguineo 
+order by idRelacionado*/

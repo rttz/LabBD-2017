@@ -173,3 +173,17 @@ CREATE FUNCTION deletePlano(pcnpj CHAR(14)) RETURNS VARCHAR(50)
             RETURN 'Registro apagado com sucesso!';
         END IF;
     END$$
+
+
+DELIMITER //
+CREATE FUNCTION mostraConsanguineos (cpf char(11)) RETURNS char(60)
+BEGIN
+DECLARE nomeCompleto varchar(40);
+
+SELECT CONCAT (Pessoa.prNome, Pessoa.sobrenome) into nomeCompleto
+FROM Familiar, Consanguineo
+Where Familiar.cpfPaciente = cpf AND Familiar.idRelacionado = Consanguineo.idRelacionado;
+
+RETURN nomeCompleto;
+END //
+DELIMITER ;
