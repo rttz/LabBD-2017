@@ -110,9 +110,9 @@ CREATE VIEW vPlanoPaciente AS(
 
 
 CREATE VIEW v_ConsangInfo AS 
-	SELECT C.idAnamnese, C.idRelacionado, C.dadosMedicos, pe.parentesco, pe.historico 
+	SELECT C.idAnamnese, C.idRelacionado, C.dadosMedicos, C.parentesco, C.historico 
 	FROM Consanguineo C 
-	INNER JOIN Relacionado r ON C.idRelacionado = r.idRelacionado;
+	INNER JOIN Familiar F ON C.idRelacionado = F.idRelacionado;
 
 CREATE VIEW v_Profissional AS
 	SELECT Pessoa.prNome, Pessoa.sobrenome, Profissional.codigoCategoria, Profissional.idCuidador, Profissional.cpf, Profissional.especialidade 

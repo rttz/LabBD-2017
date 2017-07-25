@@ -116,20 +116,6 @@ WHERE Informal.cpf = Familiar.cpf;
 END;
 
 
-DELIMITER $$ 
-CREATE PROCEDURE insere_Informal (IN p_idCuidador INTEGER, IN p_cpf CHAR(11), IN p_funcao VARCHAR(30)) 
-BEGIN  
-INSERT INTO Informal (idCuidador,cpf, funcao)  
-VALUES (p_idCuidador, p_cpf, p_funcao); 
-END; 
-
-
-CREATE PROCEDURE DeletaInformal (IN p_idCuidador INTEGER) 
-BEGIN 
-DELETE FROM Informal WHERE idCuidador = p_idCuidador; 
-END;
-
-
 delimiter $$
 CREATE PROCEDURE InsereAnmneseComPerguntas (IN a_idAnamnese INTEGER, IN a_dataAlteracao DATE, IN a_tipoSanguineo CHAR(3), IN a_historicoDoencas VARCHAR(100), IN a_pergunta VARCHAR(50), IN a_resposta VARCHAR(150), IN a_nomeInterrogador VARCHAR(30)  )
 BEGIN
@@ -300,8 +286,10 @@ INSERT INTO ExamesSolicitados(codigo, dia, hora,nomeExame)
 VALUES (ex_codigo, ex_dia, ex_hora, ex_nomeExame);
  END
 
+DROP PROCEDURE IF EXISTS insereProfissional;
+
 DELIMITER $$
-CREATE PROCEDURE insereProfissional (
+CREATE PROCEDURE insereProfissional(
     cpfAux CHAR(11),
     prNomeAux VARCHAR (30),
     sobrenomeAux VARCHAR(30),
@@ -324,7 +312,9 @@ BEGIN
     INSERT INTO Profissional (codigoCategoria, idCuidador, cpf, especialidade)
         VALUES (codigoCategoriaAux, idCuidadorAux, cpfAux, especialidadeAux);
 END$$
-DELIMETER ;
+
+
+DROP PROCEDURE IF EXISTS deletaProfissional;
 
 DELIMITER $$
 CREATE PROCEDURE deletaProfissional (IN cpf CHAR(11), IN codigoCategoria INTEGER)
@@ -332,6 +322,8 @@ BEGIN
 	DELETE FROM Profissional WHERE Profissional.cpf = cpf AND Profissional.codigoCategoria = codigoCategoria;
 	DELETE FROM Pessoa WHERE Pessoa.cpf = cpf;
 END;
+
+DROP PROCEDURE IF EXISTS inserePaciente;
 
 DELIMITER $$
 CREATE PROCEDURE inserePaciente (
@@ -354,7 +346,9 @@ BEGIN
     INSERT INTO Paciente (cpf)
         VALUES (cpfAux);
 END$$
-DELIMETER ;
+
+
+DROP PROCEDURE IF EXISTS deletaPaciente;
 
 DELIMITER $$
 CREATE PROCEDURE deletaPaciente (IN cpf CHAR(11))
@@ -362,6 +356,9 @@ BEGIN
 	DELETE FROM Paciente WHERE Paciente.cpf = cpf;
 	DELETE FROM Pessoa WHERE Pessoa.cpf = cpf;
 END;
+
+
+DROP PROCEDURE IF EXISTS insereConsanguineo;
 
 DELIMITER $$
 CREATE PROCEDURE insereConsanguineo (
@@ -381,8 +378,6 @@ CREATE PROCEDURE insereConsanguineo (
     relacaoAux VARCHAR(30),
     dadosMedicosAux VARCHAR(60),
     idAnamneseAux INTEGER,
-    idRelacionadoAux INTEGER,
-    dadosMedicosAux VARCHAR(60),
     parentescoAux VARCHAR(30),
     historicoAuxAux VARCHAR(50))
 BEGIN
@@ -395,7 +390,7 @@ BEGIN
     INSERT INTO Consanguineo (idAnamnese, idRelacionado, dadosMedicos, parentesco, historico)
     	VALUES (idAnamneseAux);
 END$$
-DELIMETER ;
+
 
 DELIMITER $$
 CREATE PROCEDURE deletaConsanguineo (IN cpf CHAR(11), IN idAnamnese INTEGER, IN idRelacionado INTEGER)
@@ -403,4 +398,36 @@ BEGIN
 	DELETE FROM Consanguineo WHERE Consanguineo.idAnamnese = idAnamnese AND Consanguineo.idRelacionado = idRelacionado;
 	DELETE FROM Familiar WHERE Familiar.idRelacionado = idRelacionado AND Familiar.cpfFamiliar = cpf;
 	DELETE FROM Pessoa WHERE Pessoa.cpf = cpf;
-END;
+END$$
+
+
+CREATE PROCEDURE `insere_NaoConsanguineo`(IN `nc_cpf` CHAR(11), IN `nc_idRelacionado` INT, IN `nc_dadosMedicos` VARCHAR(60), IN `nc_parentesco` VARCHAR(30)) NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER 
+BEGIN 
+INSERT into NaoConsanguineo(cpf,idRelacionado,dadosMedicos,parentesco) 
+VALUES (nc_cpf,nc_idRelacionado,nc_dadosMedicos,nc_parentesco); 
+end
+
+
+CREATE PROCEDURE cur_CuidPacientes (IN cpf_pac CHAR(12))
+BEGIN
+  DECLARE paciente_cpf CHAR(12);
+  DECLARE cuidador_id INTEGER;
+  DECLARE cpf_resultado INTEGER;
+
+  DECLARE cuidaPac CURSOR FOR SELECT cpf FROM Paciente, Cuidador WHERE Paciente.cpf = paciente_cpf AND Cuidador.idCuidador = cuidador_id;
+  
+  SET paciente_cpf = cpf_pac;
+
+  OPEN paciente;
+  	
+  	FETCH paciente INTO cpf_resultado;
+    
+	WHILE sem_resultado = 0 DO
+    	FETCH paciente
+    	INTO cpf_resultado;
+	END WHILE;
+
+	SELECT (CONCAT('Paciente = ', IFNULL(cpf_pac, ''), ' possui ', IFNULL(to_char(paciente % rowcount), ''),' cuidadores'));
+  
+  CLOSE consultpac;
+END
