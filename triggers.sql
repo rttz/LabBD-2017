@@ -14,10 +14,20 @@ CREATE TRIGGER `dataDisponivel`
 BEFORE INSERT ON `ExamesSolicitados` 
 FOR EACH ROW 
 Begin
- if NEW.dia = dia && NEW.hora = hora then
+ if NEW.dia = dia and NEW.hora = hora then
  SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'HORÁRIO NÃO DISPÓNIVEL'; 
 end if; 
 End;
+
+CREATE TRIGGER `dataValida` 
+BEFORE INSERT ON `ExamesSolicitados` 
+FOR EACH ROW
+begin
+  if date(NEW.dia) < date(NOW()) then
+      SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'HORÁRIO NÃO DISPÓNIVEL';
+  end if;
+  
+end
 
 
 DROP TRIGGER IF EXISTS t_i_ServAtualNegativo$$
@@ -221,3 +231,12 @@ CREATE TRIGGER cpf_iguais_Nfamiliar BEFORE INSERT ON NaoFamiliar
           END IF; 
 END$$ 
 DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER consanguineo_existe BEFORE INSERT ON Consanguineo
+	FOR EACH ROW
+	BEGIN
+  		IF (EXISTS(SELECT 1 FROM Consanguineo WHERE idAnamnese = NEW.idAnamnese AND idRelacionado = NEW.idRelacionado)) THEN
+    		SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'Inserção falhou, consanguineo já existente';
+  		END IF;
+END$$
