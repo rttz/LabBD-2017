@@ -99,33 +99,27 @@ como um contador de quantas consultas determinado paciente teve.
 
 /*
 Autor: Guilherme H C de Moraes - 573671
-View para mostrar informações do familiar
-View para mostrar informações do nao familiar
-Function(duas) para conferir se cpf consta na lista de pessoas, tanto para familiar, não familiar, e paciente 
-Function para retornar o ID do familiar ou nao familiar a partir de seu cpf*/
-/*Verificar que as tabelas foram alteradas la em cima*/
 
+-> Criacao das Tabelas Familiar e NaoFamiliar
 
-FAMILIAR
-
+Views
 -> View para mostrar as informacoes dos familiares
--> Mostra dD do familiar, atributo que é utilizado em outras tabelas, mas depois fiz uma Function para retornar o Id a partir do CPF
-
-
-naoFAMILIAR
-
 -> View para mostrar as informacoes dos nao familiares
+-> Mostra dD do familiar, atributo que é utilizado em outras tabelas, mas depois fiz uma Function para retornar o Id a partir do CPF
 -> Mostra Id do nao familiar, atributo que é utilizado em outras tabelas, mas depois fiz uma Function para retornar o Id a partir do CPF
 
-
-FUNCTIONS
-
+FUNCTIONS 
 -> Function para mostrar o id de familiar a partir de seu cpf
 -> Function para mostrar o id de nao familiar a partir de seu cpf
--> Function para inserir em Familiar
--> Function para inserir em naoFamiliar
--> Funcao que retorna o nome dos familiares
--> Funcao que retorna o nome dos nao familiares
+-> Function para inserir em Familiar, verificando se o familiar e o paciente estao cadastrados na tabela Pessoa
+-> Function para inserir em naoFamiliar, verificando se o nao-familiar e o paciente estao cadastrados na tabela Pessoa
+-> Function que retorna o nome dos familiares a partir do cpf do paciente
+-> Function que retorna o nome dos nao familiares a partir do cpf do paciente
+
+TRIGGERS
+-> Trigger para comparar se os CPFs inseridos nao sao iguais, de paciente e familiar, na tabela familiar, antes de adicionar
+-> Trigger para comparar se os CPFs inseridos nao sao iguais, de paciente e nao-familiar, na tabela naoFamiliar, antes de adicionar
+
 */
 
 
