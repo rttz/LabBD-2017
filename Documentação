@@ -38,6 +38,8 @@ Autor: Rodolfo Zampieri, RA: 380350
 para realizar uma inserção em uma view é necessário utilizar procedure
 -> Procedure insere_IntercorrenciaCuida: No MySQL o trigger "instead of" não existe, portanto,
 para realizar uma inserção em uma view é necessário utilizar procedure
+-> Procedure c_Id: procedure para obter as descrições de instâncias de cuidados do Cuidador pela variável 
+consultaId, feita em conjunto com Eduardo Yamauchi. RA: 619458
 */
 
 /*
