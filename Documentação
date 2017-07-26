@@ -40,6 +40,7 @@ para realizar uma inserção em uma view é necessário utilizar procedure
 para realizar uma inserção em uma view é necessário utilizar procedure
 -> Procedure c_Id: procedure para obter as descrições de instâncias de cuidados do Cuidador pela variável 
 consultaId, feita em conjunto com Eduardo Yamauchi. RA: 619458
+-> Function consultaNro para retornar o CPF de um cuidador através de seu idCuidador
 */
 
 /*
