@@ -1,141 +1,81 @@
-/* 
-View cuidaCompleto
+/*
 Autor: Eduardo Yamauchi - 619485
-A view tem o intuito de retornar uma visão unificada de todas as tabelas
+-> View cuidaCompleto: A view tem o intuito de retornar uma visão unificada de todas as tabelas
 relacionadas a uma agregação entre Cuidador e Paciente
-
-Procedure insert_cuidaCompleto
-Autor: Eduardo Yamauchi - 619485
-No MySQL, não existe a trigger "instead of". Portanto, para fazer 
+-> Procedure insert_cuidaCompleto: No MySQL, não existe a trigger "instead of". Portanto, para fazer 
 inserção em uma view complexa, tem que se fazer uma procedure
-
-Procedure delete_cuidaCompleto
-Autor: Eduardo Yamauchi - 619485
-No MySQL, não existe a trigger "instead of". Portanto, para fazer 
+-> Procedure delete_cuidaCompleto: No MySQL, não existe a trigger "instead of". Portanto, para fazer 
 deleção em uma view complexa, tem que se fazer uma procedure
 */
 
-
 /*
-View atendimentoMedico - ok
 Autor: Pedro Mauad - 619736
-View com o objetivo de retornar uma visão unificada de todos atributos importantes
+-> Inserção de Valores nas Tabelas para teste das Views
+-> View atendimentoMedico: View com o objetivo de retornar uma visão unificada de todos atributos importantes
 de tabelas relacionadas com a entidade Atendimento. As tabelas relacionadas são:Pessoa, Paciente, Médico.
-
-View atendimentoMedico - ok
-Autor: Pedro Mauad - 619736
-View com o objetivo de possibilitar uma inserção na view atendimentoMedico.
-
-Procedure insert_atendimentoMedico - ok
-Autor: Pedro Mauad - 619736 
-Não existe trigger "instead of" no MySQL. Logo, deve-se criar um procedimento
+-> View insere_atendimentoMedico: View com o objetivo de possibilitar uma inserção na view atendimentoMedico.
+-> Procedure insereAtendimento: Procedure para inserir dados na Tabela Atendimento
+-> Procedure atualizaAtendimento: Procedure para atualizar dados na Tabela Atendimento
+-> Procedure removeAtendimento: Procedure para remover dados da Tabela Atendimento
+-> Procedure insert_atendimentoMedico: Não existe trigger "instead of" no MySQL. Logo, deve-se criar um procedimento
 para fazer inserção em uma view que use mais de uma tabela.
-
-Procedure delete_atendimentoMedico - Ok
-Autor: Pedro Mauad
-Não existe trigger "instead of" no MySQL. Logo, deve-se criar um procedimento
+-> Procedure delete_atendimentoMedico: Não existe trigger "instead of" no MySQL. Logo, deve-se criar um procedimento
 para fazer a remoção em uma view que use mais de uma tabela.
 */
 
-
-/* 
-Procedure DadosExame
+/*
 Autor: Lucas Gouveia, RA 489050
-A procedure retorna os dados dos exames realizados de um paciente
-
-Inserção de Dados em Exame
-Autor: Lucas Gouveia, RA 489050
-
+-> Procedure DadosExame:A procedure retorna os dados dos exames realizados de um paciente
+-> Inserção de Dados em Exame
 -> View viewExame: retorna todas as infos de exame
 */
 
-
 /*
-Procedure insere_HorarioCuida
 Autor: Rodolfo Zampieri, RA: 380350
-
-No MySQL o trigger "instead of" não existe, portanto, para realizar uma inserção em uma view é necessário utilizar procedure
-
-para conferir que foi inserido basta realizar o seguinte SELECT
-SELECT * FROM `HorarioCuida` WHERE 1
-
-Procedure insere_IntercorrenciaCuida
-Autor: Rodolfo Zampieri, RA:380350
-
-No MySQL o trigger "instead of" não existe, portanto, para realizar uma inserção em uma view é necessário utilizar procedure
-
-Procedure para inserir o ínicio e término
-CREATE TABLE IF NOT EXISTS IntercorrenciaCuida (
-    cpf CHAR(11) NOT NULL,
-    idCuidador INTEGER NOT NULL,
-    intercorrenciaNro INTEGER NOT NULL auto_increment,
-    descricao CHAR(250) NOT NULL,
-    FOREIGN KEY (cpf, idCuidador) REFERENCES Cuida (cpf, idCuidador) ON DELETE CASCADE,
-	PRIMARY KEY (intercorrenciaNro)
-);
-
-para conferir que foi inserido basta realizar o seguinte SELECT
-SELECT * FROM `IntercorrenciaCuida` WHERE 1
+-> Procedure insere_HorarioCuida: No MySQL o trigger "instead of" não existe, portanto, 
+para realizar uma inserção em uma view é necessário utilizar procedure
+-> Procedure insere_IntercorrenciaCuida: No MySQL o trigger "instead of" não existe, portanto,
+para realizar uma inserção em uma view é necessário utilizar procedure
 */
-
 
 /*
 Autor: Juliano Lanssarini - 489093
-Criado a View para a Consulta e seus respectivos medicamentos,
-Também, a partir das consultas, implementado uma procedure
-como um contador de quantas consultas determinado paciente teve.
-
---inserindo dados na tabela Consulta
-
---inserindo dados na tabela Medicamentos
-
---Procedure para inserção de dados em Medicamentos
-
---Criando uma VIEW para as Consultas e seus respectivos medicamentos
-
---Procedure com cursor para contar quantas consultas teve determinado paciente
+-> Inserção dados na tabela Consulta
+-> Inserção dados na tabela Medicamentos
+-> Procedure para inserção de dados em Medicamentos
+-> Criando uma VIEW para as Consultas e seus respectivos medicamentos
+-> Procedure com cursor para contar quantas consultas teve determinado paciente
 */
-
 
 /*
 Autor: Guilherme H C de Moraes - 573671
 
--> Criacao das Tabelas Familiar e NaoFamiliar
-
-Views
 -> View para mostrar as informacoes dos familiares
 -> View para mostrar as informacoes dos nao familiares
 -> Mostra dD do familiar, atributo que é utilizado em outras tabelas, mas depois fiz uma Function para retornar o Id a partir do CPF
--> Mostra Id do nao familiar, atributo que é utilizado em outras tabelas, mas depois fiz uma Function para retornar o Id a partir do CPF
-
-FUNCTIONS 
+-> Mostra Id do nao familiar, atributo que é utilizado em outras tabelas, mas depois fiz uma Function para retornar o Id a partir do CPF 
 -> Function para mostrar o id de familiar a partir de seu cpf
 -> Function para mostrar o id de nao familiar a partir de seu cpf
 -> Function para inserir em Familiar, verificando se o familiar e o paciente estao cadastrados na tabela Pessoa
 -> Function para inserir em naoFamiliar, verificando se o nao-familiar e o paciente estao cadastrados na tabela Pessoa
 -> Function que retorna o nome dos familiares a partir do cpf do paciente
 -> Function que retorna o nome dos nao familiares a partir do cpf do paciente
-
-TRIGGERS
 -> Trigger para comparar se os CPFs inseridos nao sao iguais, de paciente e familiar, na tabela familiar, antes de adicionar
 -> Trigger para comparar se os CPFs inseridos nao sao iguais, de paciente e nao-familiar, na tabela naoFamiliar, antes de adicionar
-
 */
 
-
-/* 
-Thiago Bretas(551899)
+/*
+Autor: Thiago Bretas(551899)
 
 -> Inserção de valores na tabela Informal
 -> Criação de view para mostrar os dados do informal
 -> Criação de view, através de um procedure, para listar os informais que também são pacientes 
--> Criação de view, através de um procedure, para listar os informais que também são familiares – Thiago Bretas(551899)
--> Function para mostrar o ID de um Informal a partir de seu cpf - Thiago Bretas(551899)
+-> Criação de view, através de um procedure, para listar os informais que também são familiares
+-> Function para mostrar o ID de um Informal a partir de seu cpf
 */ 
 
-
 /*
-Aluno : Frankson Teotonho de Sousa RA: 619540
+Autor: Frankson Teotonho de Sousa RA: 619540
 
 -> View para consulta com todos os dados de uma anamnese de um paciente
 -> View para a consulta, inserção ou exclusão de uma anamnese completa
@@ -143,9 +83,13 @@ Aluno : Frankson Teotonho de Sousa RA: 619540
 -> Procedure com a exclusao de uma anamnese completa
 */
 
-/*Aluno : Paulo Vitor Tostes Betareli 	RA:587648
+/*
+Autor: Paulo Vitor Tostes Betareli 	RA:587648
 
 -> Inserts em examesSolicitados
+-> trigger DataDisponivel que verifica se há data disponível para o agendamento do exame
+-> view que consulta exames solicitados em uma consulta
+-> INSERT DENTRO DA TEBELA NAOCONSANGUINEO
 -> trigger que verifica antes de inserir na tabela examesolicitados se a data do exame já não está ocupado por outro exame
 -> trigger que verifica antes de inserir na tabela examesolicitados se a data de agendamento do exame é válida, ou seja, se é uma data pra frente da data atual
 -> view que traz todas as informações da tabela exames solicitados ordenada pelo nome do exame
@@ -155,7 +99,8 @@ Aluno : Frankson Teotonho de Sousa RA: 619540
 -> procedure que insere dados na tabela nãoconsanguineo
 */
 
-/* Autor: Régis Zangirolami, 386227
+/*
+ Autor: Régis Zangirolami, 386227
 
 -> Insert Medico (mais Pessoa como teste)
 -> Procedure insertMedico: O procedimento insere um novo médico.
@@ -167,8 +112,8 @@ Aluno : Frankson Teotonho de Sousa RA: 619540
 -> View editaAnamneseView: A view lista as relações de edição da anamnese de um paciente por um médico ordenando por cpf do paciente.
 */
 
-
-/* Igor Bianchi 558400
+/*
+ Igor Bianchi 558400
 
 -> insert plano de saude
 -> insert serviços
@@ -214,7 +159,8 @@ Guilherme Silva Correa Lemos RA:587010
 -> procedure insertAltera: O procedimento insere a relação de alteração da anamnese
 */
 
-/* Autor: Lucas Eduardo Pessoa - RA: 551864
+/* 
+Autor: Lucas Eduardo Pessoa - RA: 551864
 -> Inserção de dados do paciente
 -> trigger: paciente_existe: Criação de trigger para verificar se o paciente existe
 -> trigger: consanguineo_existe: Criação de trigger para verificar se o consanguineo existe
