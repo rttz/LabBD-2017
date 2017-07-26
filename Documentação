@@ -6,6 +6,8 @@ relacionadas a uma agregação entre Cuidador e Paciente
 inserção em uma view complexa, tem que se fazer uma procedure
 -> Procedure delete_cuidaCompleto: No MySQL, não existe a trigger "instead of". Portanto, para fazer 
 deleção em uma view complexa, tem que se fazer uma procedure
+-> Procedure c_Id: procedure para obter as descrições de instâncias de cuidados do Cuidador pela variável 
+consultaId, feita em conjunto com Rodolfo Zampieri, RA: 380350
 */
 
 /*
