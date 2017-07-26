@@ -27,28 +27,23 @@ CREATE VIEW ConsultasMedicam AS
 	WHERE Consulta.dia = Medicamento.dia AND Consulta.hora = Medicamento.hora
 	GROUP BY Consulta.dia;
 
-
 CREATE VIEW v_infoFamiliar AS 
-SELECT f.cpfFamiliar, f.idRelacionado,f.relacao, pe.prNome, pe.sobrenome,  
+SELECT f.cpfFamiliar, f.idRelacionado,f.relacao, pe.prNome, pe.sobrenome  
 FROM Familiar f INNER JOIN Pessoa pe ON f.cpfFamiliar = pe.cpf 
 
-
-/*igual*/
-CREATE VIEW v_idRelacionado AS 
+CREATE VIEW v_idRelacionadoFamiliar AS 
 SELECT f.cpfFamiliar, f.idRelacionado 
 FROM Familiar f
-INNER JOIN Pessoa pe ON f.cpfFamiliar = pe.cpf
-
+INNER JOIN Pessoa pe ON f.cpfFamiliar = pe.cpf 
 
 CREATE VIEW v_infoNFamiliar AS 
-SELECT nf.cpfNFamiliar, nf.idRelacionado, nf.relacao pe.prNome, pe.sobrenome,  
+SELECT nf.cpfNFamiliar, nf.idRelacionado, nf.relacao, pe.prNome, pe.sobrenome 
 FROM NaoFamiliar nf
 INNER JOIN Pessoa pe ON nf.cpfNFamiliar = pe.cpf 
 
-
-CREATE VIEW v_idRelacionado AS 
-SELECT nf.cpf, nf.idRelacionado 
-FROM NaoFamiliar f
+CREATE VIEW v_idRelacionadoNF AS 
+SELECT nf.cpfNFamiliar, nf.idRelacionado 
+FROM NaoFamiliar nf
 INNER JOIN Pessoa pe ON nf.cpfNFamiliar = pe.cpf 
 
 
@@ -115,9 +110,9 @@ CREATE VIEW vPlanoPaciente AS(
 
 
 CREATE VIEW v_ConsangInfo AS 
-	SELECT C.idAnamnese, C.idRelacionado, C.dadosMedicos, pe.parentesco, pe.historico 
+	SELECT C.idAnamnese, C.idRelacionado, C.dadosMedicos, C.parentesco, C.historico 
 	FROM Consanguineo C 
-	INNER JOIN Relacionado r ON C.idRelacionado = r.idRelacionado;
+	INNER JOIN Familiar F ON C.idRelacionado = F.idRelacionado;
 
 CREATE VIEW v_Profissional AS
 	SELECT Pessoa.prNome, Pessoa.sobrenome, Profissional.codigoCategoria, Profissional.idCuidador, Profissional.cpf, Profissional.especialidade 
@@ -153,8 +148,3 @@ WHERE Exame.dia = Atendimento.dia AND Exame.hora = Atendimento.hora AND Atendime
 CREATE VIEW View_NaoConsanguineo AS
 SELECT * FROM `NaoConsanguineo`
 ORDER BY NaoConsanguineo.parentesco
-
-/*CREATE VIEW View_NaoConsanguineo_ AS 
-select cpf as 'CPF', IdRelacionado as 'ID', dAdosMedicos as 'Informações MEdicas' , Parentesco as 'Parentesco'
- from NaoConsanguineo 
-order by idRelacionado*/

@@ -1,13 +1,4 @@
 DELIMITER $$ 
-  
-CREATE TRIGGER informal_ja_cadastrado BEFORE INSERT ON Informal 
-	FOR EACH ROW 
-	BEGIN 
-      	IF (EXISTS(SELECT 1 FROM Informal WHERE cpf = NEW.cpf)) THEN 
-        	SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'Inserção falhou, o    informal já foi cadastrado'; 
-          END IF; 
-END$$ 
-DELIMITER ;
 
 
 CREATE TRIGGER `dataDisponivel` 

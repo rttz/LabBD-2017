@@ -70,12 +70,9 @@ Autor: Thiago Bretas(551899)
 -> Inserção de valores na tabela Informal
 -> Criação de view para mostrar os dados do informal
 -> Criação de view, através de um procedure, para listar os informais que também são pacientes 
--> Criação de view, através de um procedure, para listar os informais que também são familiares 
-->Function para mostrar o ID de um Informal a partir de seu cpf 
--> Criação de procedure para inserir dados na tabela Informal 
--> Procedure para deletar dados da tabela Informal 
--> Trigger para verificar se o informal já está cadastrado no sistema antes de fazer o cadastro  
-*/
+-> Criação de view, através de um procedure, para listar os informais que também são familiares
+-> Function para mostrar o ID de um Informal a partir de seu cpf
+*/ 
 
 /*
 Autor: Frankson Teotonho de Sousa RA: 619540
@@ -93,6 +90,13 @@ Autor: Paulo Vitor Tostes Betareli 	RA:587648
 -> trigger DataDisponivel que verifica se há data disponível para o agendamento do exame
 -> view que consulta exames solicitados em uma consulta
 -> INSERT DENTRO DA TEBELA NAOCONSANGUINEO
+-> trigger que verifica antes de inserir na tabela examesolicitados se a data do exame já não está ocupado por outro exame
+-> trigger que verifica antes de inserir na tabela examesolicitados se a data de agendamento do exame é válida, ou seja, se é uma data pra frente da data atual
+-> view que traz todas as informações da tabela exames solicitados ordenada pelo nome do exame
+-> procedure que insere dados na view da tabela exames_solicitados
+-> view que traz todas as informações da tabela naoconsanguineo ordenado por parentesco
+-> insert dentro da tebela naoconsanguineo
+-> procedure que insere dados na tabela nãoconsanguineo
 */
 
 /*
@@ -163,7 +167,7 @@ Autor: Lucas Eduardo Pessoa - RA: 551864
 -> view v_ConsangInfo: recuperar dados de consanguineo
 -> view v_Profissional: para mostrar Profissionais (Pessoas) e todos os dados
 -> view v_Paciente: para mostrar Profissionais (Pessoas) e todos os dados
--> procedure verificaConsang: consanguineo
+-> procedure verificaConsang: verifica se a pessoa é consanguinea ou nao
 -> procedure insereConsanguineo: para inserir Consanguineo
 -> procedure deletaConsanguineo: para apagar Consanguineo
 -> procedure insereProfissional: para inserir Profissional
@@ -171,8 +175,8 @@ Autor: Lucas Eduardo Pessoa - RA: 551864
 -> procedure inserePaciente: para inserir Paciente
 -> procedure deletaPaciente: para apagar Paciente
 -> function mostraConsanguineos: mostra as pessoas Consanguineas relacionada ao respectivo familiar
--> FAZER UM CURSOR (COPIAR)
--> FAZER UM TRIGGER (COPIAR)
+-> trigger: t_profissional_existe: bloqueia inserção de profissional se um já existir
+-> cursor: cur_CuidPacientes criado através de uma procedure para contar quantos cuidadores o paciente possui
 */
 
 /* Autor: Gustavo do Carmo Braghim | RA: 489182
