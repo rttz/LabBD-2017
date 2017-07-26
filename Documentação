@@ -88,17 +88,13 @@ Autor: Frankson Teotonho de Sousa RA: 619540
 /*
 Autor: Paulo Vitor Tostes Betareli 	RA:587648
 
--> Inserts em examesSolicitados
--> trigger DataDisponivel que verifica se há data disponível para o agendamento do exame
--> view que consulta exames solicitados em uma consulta
--> INSERT DENTRO DA TEBELA NAOCONSANGUINEO
--> trigger que verifica antes de inserir na tabela examesolicitados se a data do exame já não está ocupado por outro exame
--> trigger que verifica antes de inserir na tabela examesolicitados se a data de agendamento do exame é válida, ou seja, se é uma data pra frente da data atual
--> view que traz todas as informações da tabela exames solicitados ordenada pelo nome do exame
--> procedure que insere dados na view da tabela exames_solicitados
--> view que traz todas as informações da tabela naoconsanguineo ordenado por parentesco
--> insert dentro da tebela naoconsanguineo
--> procedure que insere dados na tabela nãoconsanguineo
+-> view view_examesSolicitados que traz todas as informações da tabela naoconsanguineo ordenado por parentesco;
+-> view view_NaoConsanguineo que traz todas as informações da tabela exames solicitados ordenada pelo nome do exame;
+-> trigger DataDisponivel que verifica antes de inserir na tabela examesolicitados se a data do exame já não está ocupado por outro exame;
+-> trigger DataValida que verifica antes de inserir na tabela examesolicitados se a data de agendamento do exame é válida, ou seja, se é uma data pra frente da data atual;;
+-> procedure insere_examesSolicitados que insere dados na view da tabela exames_solicitados;;
+-> procedure insere_NaoConsanguineo que insere dados na tabela nãoconsanguineo;
+-> Function mostra_NãoConsanguineo : que mostra as pessoas nao consanguineas relacionada a um respectivo familiar.
 */
 
 /*
