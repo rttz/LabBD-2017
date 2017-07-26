@@ -73,6 +73,17 @@ END;
 
 call insere_IntercorrenciaCuida('38622244411','2','321', 'febre');
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `c_Id` $$
+
+create PROCEDURE c_Id (consultaId INTEGER) 
+
+BEGIN
+    SELECT descricao
+    FROM IntercorrenciaCuida
+    WHERE intercorrenciaNro = consultaId;
+END
+
 
 CREATE PROCEDURE insere_Medicamentos (IN med_codigoConsulta INTEGER, IN med_dia DATE, IN med_hora TIME, IN med_posologia VARCHAR(50), IN med_dataCompra DATE)
 	BEGIN
