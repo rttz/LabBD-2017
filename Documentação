@@ -118,13 +118,13 @@ Autor: Paulo Vitor Tostes Betareli 	RA:587648
 -> insert plano de saude
 -> insert serviços
 -> view para ver os serviços de acordo com os planos de saude
--> Gera novos id para serviços
--> Gera erro se campo valorAtual da tabela  Servicos for negativo
--> Gera erro se campo valorContratado da tabela  Servicos for negativo
--> Gera erro se campo valorAtual da tabela  Servicos for negativo
--> Gera erro se campo valorContratado da tabela  Servicos for negativo
--> triggers para verificar se as datas de contratação e de alteração de valor são validas
--> criar novo plano de saúde
+-> Gera erro se campo valorAtual da tabela  Servicos for negativo - update
+-> Gera erro se campo valorContratado da tabela  Servicos for negativo - update
+-> Gera erro se campo valorAtual da tabela  Servicos for negativo - insert
+-> Gera erro se campo valorContratado da tabela  Servicos for negativo - insert
+-> triggers para verificar se as datas de contratação e de alteração de valor são validas - update/insert
+-> procedure novo plano de saúde
+-> procedure novo serviço
 -> procedimento para atualizar os valores de serviços
 -> função para deletar um serviço, primeiro verificando se ele existe
 -> função que deleta um plano de saúde levando em conta primeiro as chaves estrangeiras
