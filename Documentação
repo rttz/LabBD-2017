@@ -33,9 +33,10 @@ Autor: Lucas Gouveia, RA 489050
 /*
 Autor: Rodolfo Zampieri, RA: 380350
 -> Procedure insere_HorarioCuida: No MySQL o trigger "instead of" não existe, portanto, 
-para realizar uma inserção em uma view é necessário utilizar procedure
+para realizar uma inserção em uma view é necessário utilizar procedure. Este trigger insere um novo Horário para um determinado cuidador.
 -> Procedure insere_IntercorrenciaCuida: No MySQL o trigger "instead of" não existe, portanto,
-para realizar uma inserção em uma view é necessário utilizar procedure
+para realizar uma inserção em uma view é necessário utilizar procedure. Este trigger insere uma nova intercorrencia, com descrição e id da intercorrência.
+-> Function c_Id: serve para mostrar a descricao de uma intercorrencia a partir de intercorrenciaNro
 */
 
 /*
