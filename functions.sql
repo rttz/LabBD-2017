@@ -201,3 +201,16 @@ Where Familiar.cpfPaciente = cpf AND Familiar.idRelacionado = Consanguineo.idRel
 RETURN nomeCompleto;
 END //
 DELIMITER ;
+
+DELIMITER $$
+DROP FUNCTION IF EXISTS `consultaNro`$$
+create FUNCTION consultaNro (con INTEGER) RETURNS INT
+
+BEGIN
+DECLARE mostraId INT;
+    SELECT idCuidador into mostraId
+    FROM HorarioCuida
+    WHERE cpf = con;
+    
+    return mostraId;
+END
